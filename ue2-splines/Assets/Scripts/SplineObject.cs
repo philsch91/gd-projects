@@ -8,13 +8,19 @@ public class SplineObject : MonoBehaviour {
     public SplineMoveMode mode;
     public float duration;
     public bool lookForward;
+    public Material material;
 
     private float progress;
     private bool moveForward = true;    // moveForward = false is backwards
+    private Color color = Color.green;
 
     // Start is called before the first frame update
     void Start() {
-        
+        Renderer renderer = this.GetComponent<Renderer>();
+        this.material = renderer.material;
+        //this.material = Resources.Load("materials/red", typeof(Material)) as Material;
+        this.material.SetColor(UnityConstants.UNITY_MATERIAL_COLOR, this.color);
+        //this.material.SetTexture("_Texture",Texture.)
     }
 
     // Update is called once per frame
@@ -48,5 +54,17 @@ public class SplineObject : MonoBehaviour {
         if (this.lookForward) {
             this.transform.LookAt(position + this.spline.GetDirection(this.progress));
         }
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        Debug.Log(string.Format("{0} collision with object {1}", this.gameObject.name, collision.gameObject.name));
+    }
+
+    private void OnMouseOver() {
+        this.material.color = Color.yellow;
+    }
+
+    private void OnMouseExit() {
+        this.material.color = this.color;
     }
 }
