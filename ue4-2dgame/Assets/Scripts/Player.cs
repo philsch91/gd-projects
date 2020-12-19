@@ -5,7 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour {
 
+    public int points = 0;
     public float movementSpeed = 10f;
+    public PointsText pointsText;
     
     private Rigidbody2D rigidBody;
     private float movement = 0f;
@@ -24,5 +26,8 @@ public class Player : MonoBehaviour {
         Vector2 velocity = this.rigidBody.velocity;
         velocity.x = movement;
         this.rigidBody.velocity = velocity;
+
+        float posY = transform.position.y;
+        pointsText.SetPoints((int)posY);
     }
 }
