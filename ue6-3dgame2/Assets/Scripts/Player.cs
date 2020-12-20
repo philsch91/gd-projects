@@ -31,5 +31,10 @@ public class Player : MonoBehaviour {
         if (Input.GetKey("a")) {
             this.rigidbody.AddForce(-this.sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
+
+        if (this.rigidbody.position.y < -1f) {
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            gameManager.EndGame();
+        }
     }
 }

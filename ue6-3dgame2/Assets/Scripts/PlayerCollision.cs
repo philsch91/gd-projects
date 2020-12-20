@@ -21,6 +21,8 @@ public class PlayerCollision : MonoBehaviour {
         if (collision.collider.tag == "Obstacle") {
             Debug.Log("Obstacle");
             this.player.enabled = false;
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            gameManager.EndGame();
         }
     }
 }
