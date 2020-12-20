@@ -25,10 +25,12 @@ public class CameraFollow : MonoBehaviour {
         //Camera camera = GetComponent<Camera>();
         Camera camera = this.transform.GetComponent<Camera>();
         Vector3 screenPos = camera.WorldToScreenPoint(target.position);
-        Debug.Log("target is " + screenPos.y);
+        //Debug.Log("target is " + screenPos.y);
         if (screenPos.y < 0) {
+            // EndGame 1
             //Player player = this.target.GetComponent<Player>();
             //GameManager gameManager = player.gameManager;
+            // EndGame 2
             GameManager gameManager = FindObjectOfType<GameManager>();
             gameManager.EndGame();
         }

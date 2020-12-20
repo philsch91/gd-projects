@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour {
 
     //public GameEnvironment environmentPrefab;
     //private GameEnvironment environmentInstance;
+
+    public bool autoRestart = true;    //false
+    public float restartDelay = 1f;
     private bool gameHasEnded = false;
 
     // Start is called before the first frame update
@@ -24,19 +27,28 @@ public class GameManager : MonoBehaviour {
     private void BeginGame() {
         //this.environmentInstance = Instantiate(environmentPrefab) as GameEnvironment;
         //SceneManager.LoadScene("MainScence");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void RestartGame() {
+    public void RestartGame() {
         //Destroy(environmentInstance.gameObject);
+        //SceneManager.LoadScene("MainScence");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         this.BeginGame();
     }
 
     public void EndGame() {
-        if (!this.gameHasEnded) {
-            this.gameHasEnded = true;
-            Debug.Log("Game Over");
+        if (this.gameHasEnded) {
+            return;
+        }
+
+        this.gameHasEnded = true;
+        Debug.Log("Game Over");
+
+        if (this.autoRestart) {
+            Debug.Log("RestartGame");
             //this.RestartGame();
+            Invoke("RestartGame", this.restartDelay);
         }
     }
 }
