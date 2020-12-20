@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
     //public GameEnvironment environmentPrefab;
     //private GameEnvironment environmentInstance;
+    private bool gameHasEnded = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -21,10 +23,20 @@ public class GameManager : MonoBehaviour {
 
     private void BeginGame() {
         //this.environmentInstance = Instantiate(environmentPrefab) as GameEnvironment;
+        //SceneManager.LoadScene("MainScence");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void RestartGame() {
         //Destroy(environmentInstance.gameObject);
         this.BeginGame();
+    }
+
+    public void EndGame() {
+        if (!this.gameHasEnded) {
+            this.gameHasEnded = true;
+            Debug.Log("Game Over");
+            //this.RestartGame();
+        }
     }
 }

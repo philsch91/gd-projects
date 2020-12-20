@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
     public int points = 0;
     public float movementSpeed = 10f;
     public PointsText pointsText;
+    public GameManager gameManager;
     
     private Rigidbody2D rigidBody;
     private float movement = 0f;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         this.rigidBody = GetComponent<Rigidbody2D>();
+        this.gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -27,7 +29,12 @@ public class Player : MonoBehaviour {
         velocity.x = movement;
         this.rigidBody.velocity = velocity;
 
-        float posY = transform.position.y;
-        pointsText.SetPoints((int)posY);
+        int posY = (int)transform.position.y;
+        if (posY > this.points) {
+            this.points = posY;
+            pointsText.SetPoints(this.points);
+        }
+
+        //GameManager gameManager = FindObjectOfType<GameManager>();
     }
 }
